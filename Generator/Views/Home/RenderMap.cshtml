@@ -1,0 +1,72 @@
+﻿@model Generator.Models.AllHumansPositions
+<html>
+<head>    
+    <title>Simple Map</title>
+    <meta name="viewport" content="initial-scale=1.0">
+    <meta charset="utf-8">
+    <style>
+        #map {
+            height: 100%;
+        }
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+<body>
+    <div id="map" style="position:center"></div>
+    <script>
+        var map;
+        function initMap() {
+            map = new google.maps.Map(document.getElementById('map'), {
+                center: { lat: 50.01241376861261, lng: 20.988371372222904 },
+                zoom: 15
+            });
+            var markers = [];
+        @{
+            Random random = new Random();
+            foreach (var i in Model.fullTable)
+            {
+                foreach (var j in i.pozycje)
+                {
+                    string l = (j.Lat+(random.NextDouble()*(0.0000009-(-0.00009))+(-0.00009))).ToString().Replace(",", ".");
+                    string ln = (j.Lng+(random.NextDouble()*(0.0000009-(-0.00009))+(-0.00009))).ToString().Replace(",", ".");
+                <text>markers.push({ lat:@l, lng:@ln});</text>
+            }
+             <text>var flightPath = new google.maps.Polyline({
+                path: markers,
+            @{
+                    if (i.humantype == "student")
+                      {
+                         <text>strokeColor: '#FF0000',</text>
+                      }
+                else if(i.humantype=="zwykłyturysta")
+                {
+                     <text>strokeColor: '#3393ff',</text>
+                }
+                else if (i.humantype == "religijnyturysta")
+                {
+                    <text>strokeColor: '#52cd59',</text>
+                }
+                else
+                {
+                     <text>strokeColor: '#c752cd',</text>
+                }
+            }
+                strokeOpacity: 1.0,
+                strokeWeight: 1
+            });
+            flightPath.setMap(map);
+            markers = [];
+            </text>
+            }
+        }
+        }
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA5jOPVeNOqU6lLscGSE3t665ejKNjrGQI&callback=initMap&"
+            async defer></script>
+</body>
+</html>
+
