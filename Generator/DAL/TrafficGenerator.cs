@@ -2,6 +2,7 @@
 using Generator.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Threading;
 using System.Web;
@@ -17,8 +18,9 @@ namespace Generator.DAL
             var random = new Random();//zainicjowanie generatora liczb losowych    
             int actualTime = random.Next(25200, 32000);
             Location nocleg = noclegi[random.Next(noclegi.Count)];//wybranie noclegu o losowym indeksie
-            var humanTypes = context.humanTypes;
-            var humanType = humanTypes.Where(g => human.HumanTypeId == g.HumanTypeId).FirstOrDefault();
+            var humanTypes = context.humanTypes.Include(g => g.humanLikings).ToArray();
+            var humanType = humanTypes[random.Next(humanTypes.Count()- 1)];
+            human.HumanTypeId = humanType.HumanTypeId;
             humanType.humanLikings = context.humanTypeLikings.Where(g => g.humanTypeId == human.HumanTypeId).ToArray();
             string objective = randomObjective.generateRandomObjective(context, humanType.humanLikings.ToArray());            
             Route route = HttpSinglePathGenerator.GetSinglePath(nocleg.LocationId,objective);

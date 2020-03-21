@@ -356,6 +356,14 @@
     <Compile Include="Migrations\202003211401455_legs.designer.cs">
       <DependentUpon>202003211401455_legs.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202003211732148_StepUpdate.cs" />
+    <Compile Include="Migrations\202003211732148_StepUpdate.designer.cs">
+      <DependentUpon>202003211732148_StepUpdate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003211753359_virtual.cs" />
+    <Compile Include="Migrations\202003211753359_virtual.designer.cs">
+      <DependentUpon>202003211753359_virtual.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\HumanType.cs" />
     <Compile Include="Models\HumanTypeLiking.cs" />
@@ -494,6 +502,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202003211401455_legs.resx">
       <DependentUpon>202003211401455_legs.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003211732148_StepUpdate.resx">
+      <DependentUpon>202003211732148_StepUpdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003211753359_virtual.resx">
+      <DependentUpon>202003211753359_virtual.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

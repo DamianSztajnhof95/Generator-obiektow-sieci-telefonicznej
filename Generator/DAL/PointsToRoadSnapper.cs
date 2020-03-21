@@ -1,6 +1,7 @@
 ﻿using Generator.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -17,44 +18,29 @@ namespace Generator.DAL
             var client = new HttpClient();
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            var humansToDraw = context.People;
+            var humansToDraw = context.People.Include(x => x.HumanRoutes.Select(l => l.legs.Select(s => s.steps.Select(d=>d.duration)))).Include
+                (x => x.HumanRoutes.Select(l => l.legs.Select(s => s.steps.Select(d => d.end_location)))).Include
+                (x => x.HumanRoutes.Select(l => l.legs.Select(s => s.steps.Select(d => d.start_location)))).ToList();
             var humantypes = context.humanTypes;
-            List<StartLocation2> startLocations = context.StartLocations.ToList();
-            List<EndLocation2> endLocations = context.EndLocations.ToList();
-
             foreach (var h in humansToDraw)
             {
-
                 string humanType = humantypes.Where(g => h.HumanTypeId == g.HumanTypeId).FirstOrDefault().HumanTypeName;
                 string color = humantypes.Where(g => h.HumanTypeId == g.HumanTypeId).FirstOrDefault().color;
                 Root root = new Root();
                 int iterator = 0;
                 string url = $"https://roads.googleapis.com/v1/snapToRoads?path=";
                 HumanPositions humanPositions = new HumanPositions();
-                List<Route> humanRoutes = context.Routes.Where(c => c.HumanId == h.HumanId).ToList();
+                
+               
 
-                foreach (var r in humanRoutes)
-                {
-                    r.legs = context.Legs.Where(c => c.RouteId == r.RouteId).ToList();
-                    foreach (var s in r.legs)
-                    {
-                        s.steps = context.Steps.Where(c => c.LegId == s.LegId).ToList();
-                        foreach (var step in s.steps)
-                        {
-                            step.end_location = endLocations.Where(c => c.EndLocation2Id == step.end_location.EndLocation2Id).First();
-                            step.start_location = startLocations.Where(c => c.StartLocation2Id == step.start_location.StartLocation2Id).FirstOrDefault();
-
-                        }
-                    }
-
-                }
+                
                 double beforelat = 0;
                 double beforelng = 0;
                 humanPositions.pozycje.Add(new SingleHumanPosition { Lat = h.HumanRoutes.First().legs.First().steps.First().start_location.lat, Lng = h.HumanRoutes.First().legs.First().steps.First().start_location.lng });
                 if (h.LocomotionType == "&mode=walking")
                 {
 
-                    foreach (var i in humanRoutes)
+                    foreach (var i in h.HumanRoutes)
                     {
 
                         foreach (var s in i.legs.First().steps)
@@ -67,7 +53,7 @@ namespace Generator.DAL
                 }
                 else
                 {
-                    foreach (var i in humanRoutes)
+                    foreach (var i in h.HumanRoutes)
                     {
                         foreach (var s in i.legs.First().steps)
                         {

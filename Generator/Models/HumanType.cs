@@ -11,8 +11,8 @@ namespace Generator.Models
 
         public int HumanTypeId { get; set; }
         public string HumanTypeName { get; set; }
-        public ICollection<Human> humans { get; set; }
-        public ICollection<HumanTypeLiking> humanLikings { get; set; }
+        public virtual ICollection<Human> humans { get; set; }
+        public virtual ICollection<HumanTypeLiking> humanLikings { get; set; }
         public string color { get; set; }
         public int numberOfLocations { get; set; }
         
