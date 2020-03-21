@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Threading;
 using System.Web;
 
@@ -9,24 +11,33 @@ namespace Generator.DAL
     public class LocationSeeder
     {
         public LocationInitializer initializer = new LocationInitializer();
-        public void SeedDatabaseWithLocations(GeneratorContext context)
+        public string[] locationTypes = new string[]
         {
-            initializer.LoadRoot(context, "church");
-            initializer.LoadRoot(context, "hospital");            
-            initializer.LoadRoot(context, "restaurant");           
-            initializer.LoadRoot(context, "university");
-            initializer.LoadRoot(context, "art_gallery");        
-            initializer.LoadRoot(context, "tourist_attraction");        
-            initializer.LoadRoot(context, "shopping_mall");        
-            initializer.LoadRoot(context, "park");        
-            initializer.LoadRoot(context, "movie_theater");            
-            initializer.LoadRoot(context, "bar");           
-            initializer.LoadRoot(context, "night_club");         
-            initializer.LoadRoot(context, "police");
-            initializer.LoadRoot(context, "cemetery");
-            initializer.LoadRoot(context, "amusement_park");
-            initializer.LoadRoot(context, "train_station");
-            initializer.LoadRoot(context, "cafe");
+            "train_station",
+            "tourist_attraction",
+            "church" ,
+            "hospital" ,
+            "restaurant" ,
+            "university" ,
+            "art_gallery",
+            "shopping_mall",
+            "park",
+            "movie_theater",
+            "bar",
+            "night_club",
+            "police",
+            "cemetery",
+            "amusement_park",
+            "cafe",
+            "lodging",
+        };
+
+        public void SeedDatabaseWithLocations(GeneratorContext context,string town,int radius)
+        {
+            for(int i = 0; i <= locationTypes.Length-1; i++)
+            {
+                initializer.LoadRoot(context, locationTypes[i], town, radius);
+            }            
         }
     }
 }

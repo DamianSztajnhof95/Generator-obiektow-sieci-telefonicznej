@@ -10,71 +10,66 @@ namespace Generator.DAL
 {
     public class TrafficGenerator
     {
-        public List<string> generateTrafficUrls(GeneratorContext context)
-        {                
-            List<string> allTraffic = new List<string>();
-            //Ile obiektów do wygenerowania
-            for(int i = 0; i < 1000; i++)
-            { 
-                RandomObjective randomObjective = new RandomObjective();
-                string url = "";
-                string type;
-                string locomitionType;              
-                List<Miejsce> noclegi = context.Locations.Where(g => g.type == "lodging").ToList();
-                var random = new Random();
-                int index = random.Next(noclegi.Count);
-                Miejsce nocleg = noclegi[index];
-                int typ = random.Next(0, 4);                
-                int it;
-                int randomlocomotionType = random.Next(0, 2);
-                if (randomlocomotionType == 1)
+        public Human generateTraffic(GeneratorContext context, Human human)
+        {            
+            RandomObjective randomObjective = new RandomObjective();                       
+            string url = "";
+            List<Location> noclegi = context.Locations.Where(g => g.type == "lodging").ToList();
+            var random = new Random();//zainicjowanie generatora liczb losowych    
+            int actualTime = random.Next(25200, 32000);
+            Location nocleg = noclegi[random.Next(noclegi.Count)];//wybranie noclegu o losowym indeksie
+            var humanTypes = context.humanTypes;
+            var humanType = humanTypes.Where(g => human.HumanTypeId == g.HumanTypeId).FirstOrDefault();
+            humanType.humanLikings = context.humanTypeLikings.Where(g => g.humanTypeId == human.HumanTypeId).ToArray();
+            string Objective = randomObjective.generateRandomObjective(context, humanType.humanLikings.ToArray());
+            url = $"https://maps.googleapis.com/maps/api/directions/json?origin=place_id:" +
+                $"{nocleg.LocationId}&destination=place_id:{Objective}&key=AIzaSyA5jOPVeNOqU6lLscGSE3t665ejKNjrGQI";
+            Route route = HttpSinglePathGenerator.GetSinglePath(url);
+            foreach(var i in route.legs.First().steps)
+            {
+                actualTime += i.duration.value;
+                if (actualTime > 86400)
                 {
-                    locomitionType = "&mode=Walking";                 
-                }
-                else
-                {
-                    locomitionType = "";                  
-                }
-               
-                if (typ == 1)
-                {
-                    type = "student";
-                    it = random.Next(2, 4);
-                    url = $"shttps://maps.googleapis.com/maps/api/directions/json?{locomitionType}&origin=place_id:{nocleg.MiejsceId}&destination=place_id:{nocleg.MiejsceId}&waypoints=";
-                }
-                else if(typ==2)
-                {
-                    type = "religijnyturysta";
-                    it = random.Next(3, 7);
-                    url = $"rhttps://maps.googleapis.com/maps/api/directions/json?{locomitionType}&origin=place_id:{nocleg.MiejsceId}&destination=place_id:{nocleg.MiejsceId}&waypoints=";
-                }
-                else if (typ == 3)
-                {
-                    it = random.Next(3, 7);
-                    type = "kulinarnyturysta";
-                    url = $"khttps://maps.googleapis.com/maps/api/directions/json?{locomitionType}&origin=place_id:{nocleg.MiejsceId}&destination=place_id:{nocleg.MiejsceId}&waypoints=";
-                }
-                else
-                {
-                    it = random.Next(3, 7);
-                    type = "zwykłyturysta";
-                    url = $"zhttps://maps.googleapis.com/maps/api/directions/json?{locomitionType}&origin=place_id:{nocleg.MiejsceId}&destination=place_id:{nocleg.MiejsceId}&waypoints=";
-                }                
-                for (int j = 0; j < it; j++)
-                {
-                    if (j != 0)
-                    {
-                        url = url + "|place_id:" + randomObjective.generateRandomObjective(context, type);
+                    actualTime = actualTime - 86400;
                     }
-                    else
-                    {
-                        url = url +"place_id:"+ randomObjective.generateRandomObjective(context, type);
-                    }
-                }
-                url = url + "&key=AIzaSyA5jOPVeNOqU6lLscGSE3t665ejKNjrGQI";
-                allTraffic.Add(url);
+                i.actualTime = TimeSpan.FromSeconds(actualTime) ;
+                actualTime += random.Next(1800, 7200);                
             }
-            return allTraffic;
+            human.HumanRoutes = new List<Route>();
+            human.HumanRoutes.Add(route);
+            for (int j = 0; j < humanType.numberOfLocations-1; j++)
+            {
+                string newObjective = randomObjective.generateRandomObjective(context, humanType.humanLikings.ToArray());
+                url = $"https://maps.googleapis.com/maps/api/directions/json?origin=place_id:" +
+                    $"{Objective}&destination=place_id:{newObjective}&key=AIzaSyA5jOPVeNOqU6lLscGSE3t665ejKNjrGQI";
+                route = HttpSinglePathGenerator.GetSinglePath(url);
+                foreach(var i in route.legs.First().steps)
+                {
+                    actualTime += i.duration.value;
+                    if(actualTime> 86400)
+                    {
+                        actualTime = actualTime - 86400;
+                    }
+                    i.actualTime = TimeSpan.FromSeconds(actualTime);
+                }
+                human.HumanRoutes.Add(route);
+                Objective = newObjective;
+                actualTime += random.Next(1800, 7200);
+            }
+            url = $"https://maps.googleapis.com/maps/api/directions/json?origin=place_id:" +
+                $"{Objective}&destination=place_id:{nocleg.LocationId}&key=AIzaSyA5jOPVeNOqU6lLscGSE3t665ejKNjrGQI";
+            route = HttpSinglePathGenerator.GetSinglePath(url);
+            foreach (var i in route.legs.First().steps)
+            {               
+                actualTime += i.duration.value;
+                if (actualTime > 86400)
+                {
+                    actualTime = actualTime - 86400;
+                    }
+                i.actualTime = TimeSpan.FromSeconds(actualTime);
+            }
+            human.HumanRoutes.Add(route);           
+            return human;
         }
     }
 }

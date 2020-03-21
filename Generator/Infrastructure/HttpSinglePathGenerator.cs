@@ -11,28 +11,26 @@ namespace Generator.Infrastructure
 {
     public class HttpSinglePathGenerator
     {
-        public static RootObject GetSinglePath(string query)
-        {
-            
+        public static Route GetSinglePath(string query)
+        {           
             string url = query;
-            RootObject root = new RootObject();
-            using (var client = new HttpClient())
+            Root root = new Root();
+            Route route = new Route();
+            using (HttpClient client = new HttpClient())
             {
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
                 var response = client.GetAsync(url).GetAwaiter().GetResult();
                 if (response.IsSuccessStatusCode)
                 {
                     var responseContent = response.Content;
-                    root = responseContent.ReadAsAsync<RootObject>().GetAwaiter().GetResult();
-                   
-
-                    return root;
+                    root= responseContent.ReadAsAsync<Root>().GetAwaiter().GetResult();
+                    route = root.routes.First();
+                    return route;
                 }
                 else
                 {
-                    return root;
+                    return route;
                 }
             }
         }

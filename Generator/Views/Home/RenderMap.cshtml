@@ -36,25 +36,8 @@
                 <text>markers.push({ lat:@l, lng:@ln});</text>
             }
              <text>var flightPath = new google.maps.Polyline({
-                path: markers,
-            @{
-                    if (i.humantype == "student")
-                      {
-                         <text>strokeColor: '#FF0000',</text>
-                      }
-                else if(i.humantype=="zwykłyturysta")
-                {
-                     <text>strokeColor: '#3393ff',</text>
-                }
-                else if (i.humantype == "religijnyturysta")
-                {
-                    <text>strokeColor: '#52cd59',</text>
-                }
-                else
-                {
-                     <text>strokeColor: '#c752cd',</text>
-                }
-            }
+                path: markers,                            
+                strokeColor: '@i.color',
                 strokeOpacity: 1.0,
                 strokeWeight: 1
             });

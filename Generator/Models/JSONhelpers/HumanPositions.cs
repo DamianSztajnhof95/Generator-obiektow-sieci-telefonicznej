@@ -13,6 +13,7 @@ namespace Generator.Models
             this.pozycje = new List<SingleHumanPosition>();
         }
         public string humantype { get; set; }
+        public string color { get; set; }
         public List<SingleHumanPosition> pozycje { get; set; }
         
     }

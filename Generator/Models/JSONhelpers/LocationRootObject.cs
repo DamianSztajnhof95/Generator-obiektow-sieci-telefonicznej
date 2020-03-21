@@ -30,7 +30,7 @@ namespace Generator.Models
     {
        
         public List<Result> results { get; set; }
+        public string next_page_token { get; set; }
 
-        
     }
 }

@@ -8,7 +8,7 @@ namespace Generator.Models
     public class SnappedPoint
     {
 
-        public Location location { get; set; }
+        public JsonLocation location { get; set; }
 
 
     }
