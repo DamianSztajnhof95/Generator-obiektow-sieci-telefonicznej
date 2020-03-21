@@ -348,6 +348,14 @@
     <Compile Include="Migrations\202003142123323_przebudowa23.designer.cs">
       <DependentUpon>202003142123323_przebudowa23.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202003211339353_nolegs.cs" />
+    <Compile Include="Migrations\202003211339353_nolegs.designer.cs">
+      <DependentUpon>202003211339353_nolegs.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003211401455_legs.cs" />
+    <Compile Include="Migrations\202003211401455_legs.designer.cs">
+      <DependentUpon>202003211401455_legs.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\HumanType.cs" />
     <Compile Include="Models\HumanTypeLiking.cs" />
@@ -480,6 +488,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202003142123323_przebudowa23.resx">
       <DependentUpon>202003142123323_przebudowa23.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003211339353_nolegs.resx">
+      <DependentUpon>202003211339353_nolegs.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003211401455_legs.resx">
+      <DependentUpon>202003211401455_legs.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

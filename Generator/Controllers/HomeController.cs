@@ -90,6 +90,7 @@ namespace Generator.Controllers
             }
             return RedirectToAction("Index");
         }
+        
         public ActionResult ViewHumanPositions()
         {
             var model = new List<PositionListViewModel>();
@@ -107,9 +108,9 @@ namespace Generator.Controllers
                         s.steps = context.Steps.Where(c => c.LegId == s.LegId).ToList();
                         foreach (var step in s.steps)
                         {
-                            
+
                             step.start_location = startLocations.Where(c => c.StartLocation2Id == step.start_location.StartLocation2Id).FirstOrDefault();
-                            
+
                         }
                     }
 
@@ -122,15 +123,15 @@ namespace Generator.Controllers
                     {
                         foreach (var s in l.steps)
                         {
-                            
-                                model.Add(new PositionListViewModel { lat = s.start_location.lat, lng = s.start_location.lng, ObjectId = h.HumanId, time = s.actualTime });
-                            
+
+                            model.Add(new PositionListViewModel { lat = s.start_location.lat, lng = s.start_location.lng, ObjectId = h.HumanId, time = s.actualTime });
+
                         }
                     }
                 }
             }
-                
-            
+
+
 
             return View(model);
         }
