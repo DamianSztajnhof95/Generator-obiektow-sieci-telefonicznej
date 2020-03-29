@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace Generator.Models.JSONhelpers
 {
@@ -11,6 +8,5 @@ namespace Generator.Models.JSONhelpers
         public double lat { get; set; }
         public double lng { get; set; }
         public TimeSpan time { get; set; }
-
     }
 }

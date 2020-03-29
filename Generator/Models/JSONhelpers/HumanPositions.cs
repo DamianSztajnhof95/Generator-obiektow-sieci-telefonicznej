@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 
 namespace Generator.Models
-{
-    
+{    
     public class HumanPositions
     {
         public HumanPositions()
@@ -14,7 +10,6 @@ namespace Generator.Models
         }
         public string humantype { get; set; }
         public string color { get; set; }
-        public List<SingleHumanPosition> pozycje { get; set; }
-        
+        public List<SingleHumanPosition> pozycje { get; set; }        
     }
 }

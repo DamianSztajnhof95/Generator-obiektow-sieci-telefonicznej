@@ -1,13 +1,6 @@
-﻿using Generator.Infrastructure;
-using Generator.Models;
-using System;
+﻿using Generator.Models;
 using System.Collections.Generic;
 using System.Data.Entity.Migrations;
-using System.Linq;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Threading.Tasks;
-using System.Web;
 
 namespace Generator.DAL
 {

@@ -1,15 +1,9 @@
 ﻿using Generator.DAL;
-using Generator.Infrastructure;
 using Generator.Models;
 using Generator.Models.JSONhelpers;
-using System;
 using System.Collections.Generic;
 using System.Data.Entity.Migrations;
-using System.IO;
 using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Web;
 using System.Web.Mvc;
 
 namespace Generator.Controllers
@@ -20,7 +14,6 @@ namespace Generator.Controllers
         private GeneratorContext context = new GeneratorContext();
         private LocationSeeder seeder = new LocationSeeder();
         private PositionInitializer positionInitializer = new PositionInitializer();        
-        // GET: Home
         public ActionResult Index()
         {  
             return View();
@@ -78,8 +71,7 @@ namespace Generator.Controllers
                         humanLikings.Add(new HumanTypeLiking { humanTypeLikingName = likings[i],
                             probability = probabilities[i] });
                     }
-                    humanType.humanLikings = humanLikings;
-                    
+                    humanType.humanLikings = humanLikings;                    
                     context.humanTypes.AddOrUpdate(humanType);
                     context.SaveChanges();
                 }
@@ -89,8 +81,7 @@ namespace Generator.Controllers
                 }               
             }
             return RedirectToAction("Index");
-        }
-        
+        }     
         public ActionResult ViewHumanPositions()
         {
             var model = new List<PositionListViewModel>();
@@ -108,33 +99,27 @@ namespace Generator.Controllers
                         s.steps = context.Steps.Where(c => c.LegId == s.LegId).ToList();
                         foreach (var step in s.steps)
                         {
-
-                            step.start_location = startLocations.Where(c => c.StartLocation2Id == step.start_location.StartLocation2Id).FirstOrDefault();
-
+                            step.start_location = startLocations.Where(
+                                c => c.StartLocation2Id == step.start_location.StartLocation2Id)
+                                .FirstOrDefault();
                         }
                     }
-
                 }
                 h.HumanRoutes = humanRoutes;
-
                 foreach (var r in h.HumanRoutes)
                 {
                     foreach (var l in r.legs)
                     {
                         foreach (var s in l.steps)
                         {
-
-                            model.Add(new PositionListViewModel { lat = s.start_location.lat, lng = s.start_location.lng, ObjectId = h.HumanId, time = s.actualTime });
-
+                            model.Add(new PositionListViewModel {
+                                lat = s.start_location.lat,
+                                lng = s.start_location.lng, ObjectId = h.HumanId, time = s.actualTime });
                         }
                     }
                 }
             }
-
-
-
             return View(model);
         }
-    }
-  
+    }  
 }

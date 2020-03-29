@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Threading;
-using System.Web;
-
+﻿
 namespace Generator.DAL
 {
     public class LocationSeeder
@@ -31,7 +24,6 @@ namespace Generator.DAL
             "cafe",
             "lodging",
         };
-
         public void SeedDatabaseWithLocations(GeneratorContext context,string town,int radius)
         {
             for(int i = 0; i <= locationTypes.Length-1; i++)
