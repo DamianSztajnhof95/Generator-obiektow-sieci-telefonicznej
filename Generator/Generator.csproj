@@ -372,6 +372,10 @@
     <Compile Include="Migrations\202003230220272_end.designer.cs">
       <DependentUpon>202003230220272_end.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202003292146519_legs1.cs" />
+    <Compile Include="Migrations\202003292146519_legs1.designer.cs">
+      <DependentUpon>202003292146519_legs1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\HumanType.cs" />
     <Compile Include="Models\HumanTypeLiking.cs" />
@@ -522,6 +526,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202003230220272_end.resx">
       <DependentUpon>202003230220272_end.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003292146519_legs1.resx">
+      <DependentUpon>202003292146519_legs1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

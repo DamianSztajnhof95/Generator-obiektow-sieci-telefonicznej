@@ -90,36 +90,50 @@ namespace Generator.Controllers
             List<EndLocation2> endLocations = context.EndLocations.ToList();
             foreach (var h in humansToShow)
             {
-                List<Route> humanRoutes = context.Routes.Where(c => c.HumanId == h.HumanId).ToList();
+                List<Leg> humanRoutes = context.Legs.Where(c => c.HumanId == h.HumanId).ToList();
                 foreach (var r in humanRoutes)
                 {
-                    r.legs = context.Legs.Where(c => c.RouteId == r.RouteId).ToList();
-                    foreach (var s in r.legs)
-                    {
-                        s.steps = context.Steps.Where(c => c.LegId == s.LegId).ToList();
-                        foreach (var step in s.steps)
-                        {
+                    r.steps = context.Steps.Where(c => c.LegId == r.LegId).ToList();
+                    foreach (var step in r.steps)
+                    {    
                             step.start_location = startLocations.Where(
                                 c => c.StartLocation2Id == step.start_location.StartLocation2Id)
-                                .FirstOrDefault();
-                        }
+                                .FirstOrDefault();                       
                     }
                 }
                 h.HumanRoutes = humanRoutes;
                 foreach (var r in h.HumanRoutes)
                 {
-                    foreach (var l in r.legs)
+                    foreach (var s in r.steps)
                     {
-                        foreach (var s in l.steps)
-                        {
                             model.Add(new PositionListViewModel {
                                 lat = s.start_location.lat,
                                 lng = s.start_location.lng, ObjectId = h.HumanId, time = s.actualTime });
-                        }
                     }
                 }
             }
             return View(model);
+        }
+        public ActionResult clearPositions()
+        {
+            context.Database.ExecuteSqlCommand("DELETE FROM Humen");
+            context.Database.ExecuteSqlCommand("DELETE FROM Legs");
+            context.Database.ExecuteSqlCommand("DELETE FROM Steps");
+            context.Database.ExecuteSqlCommand("DELETE FROM Duration2");
+            context.Database.ExecuteSqlCommand("DELETE FROM StartLocation2");
+            context.Database.ExecuteSqlCommand("DELETE FROM EndLocation2");
+            return RedirectToAction("Index");
+        }
+        public ActionResult clearHumanTypes()
+        {
+            context.Database.ExecuteSqlCommand("DELETE FROM HumanTypes");
+            context.Database.ExecuteSqlCommand("DELETE FROM HumanTypeLikings");
+            return RedirectToAction("Index");
+        }
+        public ActionResult ClearLocations()
+        {
+            context.Database.ExecuteSqlCommand("DELETE FROM Locations");
+            return RedirectToAction("Index");
         }
     }  
 }

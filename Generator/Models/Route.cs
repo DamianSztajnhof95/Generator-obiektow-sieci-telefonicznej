@@ -35,12 +35,12 @@ namespace Generator.Models
     {
         public int LegId { get; set; }
         public virtual List<Step> steps { get; set; }
-        public int RouteId { get; set; }
+        public int HumanId { get; set; }
     }
     public class Route
     {   
         public int RouteId { get; set; }
         public virtual List<Leg> legs { get; set; }
-        public int HumanId { get; set; }
+        
     }
 }

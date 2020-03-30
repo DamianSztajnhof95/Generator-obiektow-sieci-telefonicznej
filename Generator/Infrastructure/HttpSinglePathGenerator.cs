@@ -7,14 +7,14 @@ namespace Generator.Infrastructure
 {
     public class HttpSinglePathGenerator
     {
-        public static Route GetSinglePath(string objective ,string newObjective)
+        public static Leg GetSinglePath(string objective ,string newObjective)
         {
             Random random = new Random();
             string url = $"https://maps.googleapis.com/maps/api/directions/json?origin=place_id:" +
                     $"{objective}&destination=place_id:{newObjective}" +
                     $"&alternatives=true&key=AIzaSyA5jOPVeNOqU6lLscGSE3t665ejKNjrGQI"; ;
             Root root = new Root();
-            Route route = new Route();
+            Leg leg = new Leg();
             using (HttpClient client = new HttpClient())
             {
                 client.DefaultRequestHeaders.Accept.Clear();
@@ -24,13 +24,12 @@ namespace Generator.Infrastructure
                 {
                     var responseContent = response.Content;
                     root= responseContent.ReadAsAsync<Root>().GetAwaiter().GetResult();
-                    route = root.routes[random.Next(root.routes.Count-1)];
-                    
-                    return route;
+                    leg = root.routes[random.Next(root.routes.Count-1)].legs[0];                    
+                    return leg;
                 }
                 else
                 {
-                    return route;
+                    return leg;
                 }
             }
         }

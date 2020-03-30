@@ -15,9 +15,9 @@ namespace Generator.DAL
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             var humansToDraw = context.People.Include(x => x.HumanRoutes
-                 .Select(l => l.legs.Select(s => s.steps.Select(d => d.duration)))).Include
-                (x => x.HumanRoutes.Select(l => l.legs.Select(s => s.steps.Select(d => d.end_location)))).Include
-                (x => x.HumanRoutes.Select(l => l.legs.Select(s => s.steps.Select(d => d.start_location)))).Include
+                 .Select(l => l.steps.Select(d => d.duration))).Include
+                (x => x.HumanRoutes.Select(s => s.steps.Select(d => d.end_location))).Include
+                (x => x.HumanRoutes.Select(s => s.steps.Select(d => d.start_location))).Include
                 (x => x.humanType).ToList();
             foreach (var h in humansToDraw)
             {
@@ -29,14 +29,14 @@ namespace Generator.DAL
                 double beforelng = 0;
                 humanPositions.pozycje.Add(new SingleHumanPosition
                 {
-                    Lat = h.HumanRoutes.First().legs.First().steps.First().start_location.lat,
-                    Lng = h.HumanRoutes.First().legs.First().steps.First().start_location.lng
+                    Lat = h.HumanRoutes.First().steps.First().start_location.lat,
+                    Lng = h.HumanRoutes.First().steps.First().start_location.lng
                 });
                 if (h.LocomotionType == "&modhrte=walking")
                 {
                     foreach (var i in h.HumanRoutes)
                     {
-                        foreach (var s in i.legs.First().steps)
+                        foreach (var s in i.steps)
                         {
                             humanPositions.pozycje.Add(new SingleHumanPosition
                             {
@@ -56,7 +56,7 @@ namespace Generator.DAL
                 {
                     foreach (var i in h.HumanRoutes)
                     {
-                        foreach (var s in i.legs.First().steps)
+                        foreach (var s in i.steps)
                         {
                             double midpointlat = (beforelat + s.start_location.lat) / 2;
                             double midpointlng = (beforelng + s.start_location.lng) / 2;

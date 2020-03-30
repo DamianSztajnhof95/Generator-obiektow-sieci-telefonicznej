@@ -9,6 +9,6 @@ namespace Generator.Models
         public int HumanId { get; set; }              
         public string LocomotionType { get; set; }
         public HumanType humanType { get; set; }
-        public virtual List<Route> HumanRoutes { get; set; } 
+        public virtual List<Leg> HumanRoutes { get; set; } 
     }
 }

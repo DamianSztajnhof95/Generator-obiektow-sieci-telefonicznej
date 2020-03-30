@@ -15,57 +15,57 @@ namespace Generator.DAL
             var random = new Random();//zainicjowanie generatora liczb losowych    
             int actualTime = random.Next(21600, 43200);
             Location nocleg;
-            Route route = null;
+            Leg leg = null;
             string objective;
             do
             {
                 nocleg = noclegi[random.Next(noclegi.Count)];//wybranie noclegu o losowym indeksie                       
                 objective = randomObjective.generateRandomObjective
                     (context, human.humanType.humanLikings.ToArray());
-                route = HttpSinglePathGenerator.GetSinglePath(nocleg.LocationId, objective);
+                leg = HttpSinglePathGenerator.GetSinglePath(nocleg.LocationId, objective);
                
-            } while (route==null);
-            foreach (var i in route.legs.First().steps)
+            } while (leg==null);
+            foreach (var i in leg.steps )
             {
                 i.actualTime = TimeSpan.FromSeconds(
                     TimeProcessor.calculateTime(actualTime, i.duration.value));                
             }
             actualTime += random.Next(1800, 7200);
-            human.HumanRoutes = new List<Route>();
-            human.HumanRoutes.Add(route);
+            human.HumanRoutes = new List<Leg>();
+            human.HumanRoutes.Add(leg);
             int howManyLocation = random.Next(1,human.humanType.numberOfLocations);
             for (int j = 0; j <= howManyLocation-1; j++)
             {
                 string newObjective = randomObjective.generateRandomObjective
                     (context, human.humanType.humanLikings.ToArray());
-                route = HttpSinglePathGenerator.GetSinglePath(objective,newObjective);
-                 if (route == null)
+                leg = HttpSinglePathGenerator.GetSinglePath(objective,newObjective);
+                 if (leg == null)
                 {
                     howManyLocation--;
                 }
                 else
                 {
-                    foreach (var i in route.legs.First().steps)
+                    foreach (var i in leg.steps)
                     {
                         i.actualTime = TimeSpan.FromSeconds(
                             TimeProcessor.calculateTime(actualTime, i.duration.value));
                     }
-                    human.HumanRoutes.Add(route);
+                    human.HumanRoutes.Add(leg);
                     objective = newObjective;
                     actualTime += random.Next(1800, 7200);
                 }             
             }
-            route = HttpSinglePathGenerator.GetSinglePath(objective, nocleg.LocationId);
-            if (route == null)
+            leg = HttpSinglePathGenerator.GetSinglePath(objective, nocleg.LocationId);
+            if (leg == null)
             {
                 return null;
             }
-            foreach (var i in route.legs.First().steps)
+            foreach (var i in leg.steps)
             {
                 i.actualTime = TimeSpan.FromSeconds(
                     TimeProcessor.calculateTime(actualTime, i.duration.value));
             }
-            human.HumanRoutes.Add(route);           
+            human.HumanRoutes.Add(leg);           
             return human;
         }
     }
