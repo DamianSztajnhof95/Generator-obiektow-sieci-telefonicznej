@@ -1,4 +1,5 @@
 ﻿<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
   <Import Project="..\packages\EntityFramework.6.4.0\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.4.0\build\EntityFramework.props')" />
   <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
@@ -24,6 +25,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <TypeScriptToolsVersion>3.7</TypeScriptToolsVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -108,22 +110,118 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\bootstrap-responsive.css" />
+    <Content Include="Content\bootstrap-responsive.min.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\images\glyphicons-halflings-white.png" />
+    <Content Include="Content\images\glyphicons-halflings.png" />
+    <Content Include="Content\jscolor\arrow.gif" />
+    <Content Include="Content\jscolor\cross.gif" />
+    <Content Include="Content\jscolor\hs.png" />
+    <Content Include="Content\jscolor\hv.png" />
     <Content Include="Content\Site.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="Content\jscolor\Thumbs.db" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\esm\popper-utils.js" />
+    <Content Include="Scripts\esm\popper-utils.min.js" />
+    <Content Include="Scripts\esm\popper.js" />
+    <Content Include="Scripts\esm\popper.min.js" />
+    <Content Include="Scripts\index.js.flow" />
+    <Content Include="Scripts\esm\popper.min.js.map" />
+    <Content Include="Scripts\esm\popper.js.map" />
+    <Content Include="Scripts\esm\popper-utils.min.js.map" />
+    <Content Include="Scripts\esm\popper-utils.js.map" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Content\bootstrap-theme.css.map" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
     <Content Include="Scripts\jquery-3.4.1.slim.js" />
     <Content Include="Scripts\jquery-3.4.1.slim.min.js" />
+    <Content Include="Scripts\jscolor.js" />
     <Content Include="Scripts\MapRenderer.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\npm.js" />
+    <Content Include="Scripts\popper-utils.js" />
+    <Content Include="Scripts\popper-utils.min.js" />
+    <Content Include="Scripts\popper.js" />
+    <Content Include="Scripts\popper.min.js" />
+    <Content Include="Scripts\src\index.js" />
+    <Content Include="Scripts\src\methods\defaults.js" />
+    <Content Include="Scripts\src\methods\destroy.js" />
+    <Content Include="Scripts\src\methods\disableEventListeners.js" />
+    <Content Include="Scripts\src\methods\enableEventListeners.js" />
+    <Content Include="Scripts\src\methods\placements.js" />
+    <Content Include="Scripts\src\methods\update.js" />
+    <Content Include="Scripts\src\modifiers\applyStyle.js" />
+    <Content Include="Scripts\src\modifiers\arrow.js" />
+    <Content Include="Scripts\src\modifiers\computeStyle.js" />
+    <Content Include="Scripts\src\modifiers\flip.js" />
+    <Content Include="Scripts\src\modifiers\hide.js" />
+    <Content Include="Scripts\src\modifiers\index.js" />
+    <Content Include="Scripts\src\modifiers\inner.js" />
+    <Content Include="Scripts\src\modifiers\keepTogether.js" />
+    <Content Include="Scripts\src\modifiers\offset.js" />
+    <Content Include="Scripts\src\modifiers\preventOverflow.js" />
+    <Content Include="Scripts\src\modifiers\shift.js" />
+    <Content Include="Scripts\src\utils\clockwise.js" />
+    <Content Include="Scripts\src\utils\computeAutoPlacement.js" />
+    <Content Include="Scripts\src\utils\debounce.js" />
+    <Content Include="Scripts\src\utils\find.js" />
+    <Content Include="Scripts\src\utils\findCommonOffsetParent.js" />
+    <Content Include="Scripts\src\utils\findIndex.js" />
+    <Content Include="Scripts\src\utils\getBordersSize.js" />
+    <Content Include="Scripts\src\utils\getBoundaries.js" />
+    <Content Include="Scripts\src\utils\getBoundingClientRect.js" />
+    <Content Include="Scripts\src\utils\getClientRect.js" />
+    <Content Include="Scripts\src\utils\getFixedPositionOffsetParent.js" />
+    <Content Include="Scripts\src\utils\getOffsetParent.js" />
+    <Content Include="Scripts\src\utils\getOffsetRect.js" />
+    <Content Include="Scripts\src\utils\getOffsetRectRelativeToArbitraryNode.js" />
+    <Content Include="Scripts\src\utils\getOppositePlacement.js" />
+    <Content Include="Scripts\src\utils\getOppositeVariation.js" />
+    <Content Include="Scripts\src\utils\getOuterSizes.js" />
+    <Content Include="Scripts\src\utils\getParentNode.js" />
+    <Content Include="Scripts\src\utils\getPopperOffsets.js" />
+    <Content Include="Scripts\src\utils\getReferenceNode.js" />
+    <Content Include="Scripts\src\utils\getReferenceOffsets.js" />
+    <Content Include="Scripts\src\utils\getRoot.js" />
+    <Content Include="Scripts\src\utils\getRoundedOffsets.js" />
+    <Content Include="Scripts\src\utils\getScroll.js" />
+    <Content Include="Scripts\src\utils\getScrollParent.js" />
+    <Content Include="Scripts\src\utils\getStyleComputedProperty.js" />
+    <Content Include="Scripts\src\utils\getSupportedPropertyName.js" />
+    <Content Include="Scripts\src\utils\getViewportOffsetRectRelativeToArtbitraryNode.js" />
+    <Content Include="Scripts\src\utils\getWindow.js" />
+    <Content Include="Scripts\src\utils\getWindowSizes.js" />
+    <Content Include="Scripts\src\utils\includeScroll.js" />
+    <Content Include="Scripts\src\utils\index.js" />
+    <Content Include="Scripts\src\utils\isBrowser.js" />
+    <Content Include="Scripts\src\utils\isFixed.js" />
+    <Content Include="Scripts\src\utils\isFunction.js" />
+    <Content Include="Scripts\src\utils\isIE.js" />
+    <Content Include="Scripts\src\utils\isModifierEnabled.js" />
+    <Content Include="Scripts\src\utils\isModifierRequired.js" />
+    <Content Include="Scripts\src\utils\isNumeric.js" />
+    <Content Include="Scripts\src\utils\isOffsetContainer.js" />
+    <Content Include="Scripts\src\utils\removeEventListeners.js" />
+    <Content Include="Scripts\src\utils\runModifiers.js" />
+    <Content Include="Scripts\src\utils\setAttributes.js" />
+    <Content Include="Scripts\src\utils\setStyles.js" />
+    <Content Include="Scripts\src\utils\setupEventListeners.js" />
+    <Content Include="Scripts\umd\popper-utils.js" />
+    <Content Include="Scripts\umd\popper-utils.min.js" />
+    <Content Include="Scripts\umd\popper.js" />
+    <Content Include="Scripts\umd\popper.min.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -139,9 +237,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Infrastructure\ApiHelper.cs" />
     <Compile Include="Infrastructure\HttpSinglePathGenerator.cs" />
     <Compile Include="Infrastructure\RandomObjective.cs" />
+    <Compile Include="Infrastructure\TimeProcessor.cs" />
     <Compile Include="Migrations\202002050725310_newmigration.cs" />
     <Compile Include="Migrations\202002050725310_newmigration.designer.cs">
       <DependentUpon>202002050725310_newmigration.cs</DependentUpon>
@@ -166,29 +264,138 @@
     <Compile Include="Migrations\202002091602305_nocar.designer.cs">
       <DependentUpon>202002091602305_nocar.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202002112205113_locomotionType.cs" />
+    <Compile Include="Migrations\202002112205113_locomotionType.designer.cs">
+      <DependentUpon>202002112205113_locomotionType.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202002112213298_guman.cs" />
+    <Compile Include="Migrations\202002112213298_guman.designer.cs">
+      <DependentUpon>202002112213298_guman.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202002112216582_time.cs" />
+    <Compile Include="Migrations\202002112216582_time.designer.cs">
+      <DependentUpon>202002112216582_time.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003012120404_humantypes.cs" />
+    <Compile Include="Migrations\202003012120404_humantypes.designer.cs">
+      <DependentUpon>202003012120404_humantypes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003012131117_humantypesfix.cs" />
+    <Compile Include="Migrations\202003012131117_humantypesfix.designer.cs">
+      <DependentUpon>202003012131117_humantypesfix.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003012138238_humantypesfix1.cs" />
+    <Compile Include="Migrations\202003012138238_humantypesfix1.designer.cs">
+      <DependentUpon>202003012138238_humantypesfix1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003022027407_upodobania.cs" />
+    <Compile Include="Migrations\202003022027407_upodobania.designer.cs">
+      <DependentUpon>202003022027407_upodobania.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003022049237_upodobaniaa.cs" />
+    <Compile Include="Migrations\202003022049237_upodobaniaa.designer.cs">
+      <DependentUpon>202003022049237_upodobaniaa.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003022056326_upodobaniaaa.cs" />
+    <Compile Include="Migrations\202003022056326_upodobaniaaa.designer.cs">
+      <DependentUpon>202003022056326_upodobaniaaa.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003022120236_upodobaniaaaa.cs" />
+    <Compile Include="Migrations\202003022120236_upodobaniaaaa.designer.cs">
+      <DependentUpon>202003022120236_upodobaniaaaa.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003031843038_humanId.cs" />
+    <Compile Include="Migrations\202003031843038_humanId.designer.cs">
+      <DependentUpon>202003031843038_humanId.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003031844495_humanIdd.cs" />
+    <Compile Include="Migrations\202003031844495_humanIdd.designer.cs">
+      <DependentUpon>202003031844495_humanIdd.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003031905234_humanIddd.cs" />
+    <Compile Include="Migrations\202003031905234_humanIddd.designer.cs">
+      <DependentUpon>202003031905234_humanIddd.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003081740336_colors.cs" />
+    <Compile Include="Migrations\202003081740336_colors.designer.cs">
+      <DependentUpon>202003081740336_colors.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003101626123_refactor.cs" />
+    <Compile Include="Migrations\202003101626123_refactor.designer.cs">
+      <DependentUpon>202003101626123_refactor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003141834337_przebudowa.cs" />
+    <Compile Include="Migrations\202003141834337_przebudowa.designer.cs">
+      <DependentUpon>202003141834337_przebudowa.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003141854529_przebudowa1.cs" />
+    <Compile Include="Migrations\202003141854529_przebudowa1.designer.cs">
+      <DependentUpon>202003141854529_przebudowa1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003141908336_przebudowa2.cs" />
+    <Compile Include="Migrations\202003141908336_przebudowa2.designer.cs">
+      <DependentUpon>202003141908336_przebudowa2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003142108281_przebudowa21.cs" />
+    <Compile Include="Migrations\202003142108281_przebudowa21.designer.cs">
+      <DependentUpon>202003142108281_przebudowa21.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003142117183_przebudowa22.cs" />
+    <Compile Include="Migrations\202003142117183_przebudowa22.designer.cs">
+      <DependentUpon>202003142117183_przebudowa22.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003142123323_przebudowa23.cs" />
+    <Compile Include="Migrations\202003142123323_przebudowa23.designer.cs">
+      <DependentUpon>202003142123323_przebudowa23.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003211339353_nolegs.cs" />
+    <Compile Include="Migrations\202003211339353_nolegs.designer.cs">
+      <DependentUpon>202003211339353_nolegs.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003211401455_legs.cs" />
+    <Compile Include="Migrations\202003211401455_legs.designer.cs">
+      <DependentUpon>202003211401455_legs.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003211732148_StepUpdate.cs" />
+    <Compile Include="Migrations\202003211732148_StepUpdate.designer.cs">
+      <DependentUpon>202003211732148_StepUpdate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003211753359_virtual.cs" />
+    <Compile Include="Migrations\202003211753359_virtual.designer.cs">
+      <DependentUpon>202003211753359_virtual.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003221207226_humantypechange.cs" />
+    <Compile Include="Migrations\202003221207226_humantypechange.designer.cs">
+      <DependentUpon>202003221207226_humantypechange.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003230220272_end.cs" />
+    <Compile Include="Migrations\202003230220272_end.designer.cs">
+      <DependentUpon>202003230220272_end.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003292146519_legs1.cs" />
+    <Compile Include="Migrations\202003292146519_legs1.designer.cs">
+      <DependentUpon>202003292146519_legs1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\HumanType.cs" />
+    <Compile Include="Models\HumanTypeLiking.cs" />
+    <Compile Include="Models\JSONhelpers\HumanTypeViewModel.cs" />
+    <Compile Include="Models\JSONhelpers\LocationViewModel.cs" />
+    <Compile Include="Models\JSONhelpers\PositionListViewModel.cs" />
     <Compile Include="Models\JSONhelpers\SingleHumanPosition.cs" />
     <Compile Include="Models\JSONhelpers\AllHumansPositions.cs" />
     <Compile Include="Models\Human.cs" />
     <Compile Include="Models\JSONhelpers\HumanPositions.cs" />
     <Compile Include="Models\JSONhelpers\LocationRootObject.cs" />
-    <Compile Include="Models\Miejsce.cs" />
-    <Compile Include="Models\JSONhelpers\RootObject.cs" />
-    <Compile Include="Models\Pozycja.cs" />
-    <Compile Include="Models\JSONhelpers\Location.cs" />
+    <Compile Include="Models\Location.cs" />
+    <Compile Include="Models\JSONhelpers\Root.cs" />
+    <Compile Include="Models\JSONhelpers\JsonLocation.cs" />
     <Compile Include="Models\JSONhelpers\SnappedPoint.cs" />
+    <Compile Include="Models\Route.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
-    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
-    <Content Include="fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="Content\bootstrap.min.css.map" />
-    <Content Include="Content\bootstrap.css.map" />
-    <Content Include="Content\bootstrap-theme.min.css.map" />
-    <Content Include="Content\bootstrap-theme.css.map" />
     <None Include="packages.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
@@ -196,6 +403,20 @@
     <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.4.1.min.map" />
     <Content Include="Views\Home\RenderMap.cshtml" />
+    <Content Include="Views\Home\GenerateTrafic.cshtml" />
+    <Content Include="Views\Home\CreateHumanType.cshtml" />
+    <Content Include="Views\Home\SeedDatabaseWithLocations.cshtml" />
+    <Content Include="Views\Home\ViewHumanPositions.cshtml" />
+    <Content Include="Scripts\umd\popper.min.js.map" />
+    <Content Include="Scripts\umd\popper.js.map" />
+    <Content Include="Scripts\umd\popper.js.flow" />
+    <Content Include="Scripts\umd\popper-utils.min.js.map" />
+    <Content Include="Scripts\umd\popper-utils.js.map" />
+    <Content Include="Scripts\README.md" />
+    <Content Include="Scripts\popper.min.js.map" />
+    <Content Include="Scripts\popper.js.map" />
+    <Content Include="Scripts\popper-utils.min.js.map" />
+    <Content Include="Scripts\popper-utils.js.map" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -225,12 +446,103 @@
     <EmbeddedResource Include="Migrations\202002091602305_nocar.resx">
       <DependentUpon>202002091602305_nocar.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002112205113_locomotionType.resx">
+      <DependentUpon>202002112205113_locomotionType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002112213298_guman.resx">
+      <DependentUpon>202002112213298_guman.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002112216582_time.resx">
+      <DependentUpon>202002112216582_time.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003012120404_humantypes.resx">
+      <DependentUpon>202003012120404_humantypes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003012131117_humantypesfix.resx">
+      <DependentUpon>202003012131117_humantypesfix.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003012138238_humantypesfix1.resx">
+      <DependentUpon>202003012138238_humantypesfix1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003022027407_upodobania.resx">
+      <DependentUpon>202003022027407_upodobania.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003022049237_upodobaniaa.resx">
+      <DependentUpon>202003022049237_upodobaniaa.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003022056326_upodobaniaaa.resx">
+      <DependentUpon>202003022056326_upodobaniaaa.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003022120236_upodobaniaaaa.resx">
+      <DependentUpon>202003022120236_upodobaniaaaa.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003031843038_humanId.resx">
+      <DependentUpon>202003031843038_humanId.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003031844495_humanIdd.resx">
+      <DependentUpon>202003031844495_humanIdd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003031905234_humanIddd.resx">
+      <DependentUpon>202003031905234_humanIddd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003081740336_colors.resx">
+      <DependentUpon>202003081740336_colors.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003101626123_refactor.resx">
+      <DependentUpon>202003101626123_refactor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003141834337_przebudowa.resx">
+      <DependentUpon>202003141834337_przebudowa.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003141854529_przebudowa1.resx">
+      <DependentUpon>202003141854529_przebudowa1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003141908336_przebudowa2.resx">
+      <DependentUpon>202003141908336_przebudowa2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003142108281_przebudowa21.resx">
+      <DependentUpon>202003142108281_przebudowa21.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003142117183_przebudowa22.resx">
+      <DependentUpon>202003142117183_przebudowa22.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003142123323_przebudowa23.resx">
+      <DependentUpon>202003142123323_przebudowa23.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003211339353_nolegs.resx">
+      <DependentUpon>202003211339353_nolegs.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003211401455_legs.resx">
+      <DependentUpon>202003211401455_legs.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003211732148_StepUpdate.resx">
+      <DependentUpon>202003211732148_StepUpdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003211753359_virtual.resx">
+      <DependentUpon>202003211753359_virtual.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003221207226_humantypechange.resx">
+      <DependentUpon>202003221207226_humantypechange.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003230220272_end.resx">
+      <DependentUpon>202003230220272_end.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003292146519_legs1.resx">
+      <DependentUpon>202003292146519_legs1.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <TypeScriptCompile Include="Scripts\index.d.ts" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
   <ProjectExtensions>
